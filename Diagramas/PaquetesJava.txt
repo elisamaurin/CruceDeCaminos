@@ -1,0 +1,25 @@
+cruceDeCaminos/
+│
+├── modelo/               ← Clases que representan entidades del sistema
+│   ├── Usuario.java
+│   ├── Alumno.java
+│   ├── Profesor.java
+│   ├── ClasePractica.java
+│   ├── Test.java
+│   ├── Pregunta.java
+│   ├── Respuesta.java
+│   └── ResultadoTest.java
+│
+├── servicio/             ← Lógica de negocio (métodos como inscribirEnClase, etc.)
+│   ├── AlumnoService.java
+│   ├── ProfesorService.java
+│   └── TestService.java
+│
+├── util/                 ← Clases auxiliares (enviar notificación, etc.)
+│   └── NotificacionUtil.java
+│
+├── interfaz/             ← Interfaces gráficas o de consola
+│   └── MenuPrincipal.java
+│
+└── main/                 ← Punto de entrada de la aplicación
+    └── App.java
