@@ -7,6 +7,8 @@ public class Pregunta {
     private String enunciado;
     private Opcion opcion;
 
+    public Pregunta() {}
+
     public Pregunta(long id, String enunciado, Opcion opcion) {
         this.id = id;
         this.enunciado = enunciado;
@@ -23,6 +25,18 @@ public class Pregunta {
 
     public Opcion getOpcion() {
         return opcion;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setEnunciado(String enunciado) {
+        this.enunciado = enunciado;
+    }
+
+    public void setOpcion(Opcion opcion) {
+        this.opcion = opcion;
     }
 
     public String toString() {
