@@ -10,10 +10,9 @@ public abstract class Usuario {
     private String email;
     private int telefono;
     private String password;
-    private LocalDateTime horario;
     private String tipo;
 
-    public Usuario(long id, String nombre, String apellido, String dni, String email, int telefono, String password, LocalDateTime horario, String tipo) {
+    public Usuario(long id, String nombre, String apellido, String dni, String email, int telefono, String password, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -21,7 +20,6 @@ public abstract class Usuario {
         this.email = email;
         this.telefono = telefono;
         this.password = password;
-        this.horario = horario;
         this.tipo = tipo;
     }
 
@@ -61,10 +59,6 @@ public abstract class Usuario {
         this.password = password;
     }
 
-    public void setHorario(LocalDateTime horario) {
-        this.horario = horario;
-    }
-
     public long getId() {
         return id;
     }
@@ -93,9 +87,6 @@ public abstract class Usuario {
         return password;
     }
 
-    public LocalDateTime getHorario() {
-        return horario;
-    }
 
     public String toString() {
         return "id: " + id + "\n" +
@@ -105,7 +96,6 @@ public abstract class Usuario {
                 "email: " + email + "\n" +
                 "telefono: " + telefono + "\n" +
                 "password: " + password + "\n" +
-                "horario: " + horario + "\n" +
                 "tipo: " + tipo + "\n";
     }
 

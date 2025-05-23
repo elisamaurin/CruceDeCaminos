@@ -1,6 +1,5 @@
 package org.cpifppiramide.interfaz;
 
-import org.cpifppiramide.clases.Alumno;
 import org.cpifppiramide.clases.ClasePractica;
 import org.cpifppiramide.clases.Profesor;
 import org.cpifppiramide.conexionBD.Conexion;
@@ -27,6 +26,7 @@ public class InterfazProfesor extends JFrame {
 
         JButton btnVerAgenda = new JButton("Ver Agenda de Clases");
         JButton btnAnotarProgreso = new JButton("Anotar Progreso del Alumno");
+        JButton btnImpartirClase = new JButton("Impartir clase");
         JButton btnEditarHorario = new JButton("Editar horario");
         JButton btnModificarPassword = new JButton("Modificar Password");
         JButton btnGestionarClases = new JButton("Gestionar Clases");
@@ -34,20 +34,12 @@ public class InterfazProfesor extends JFrame {
 
 
         btnVerAgenda.addActionListener(e ->{
-            List<ClasePractica> clases = List.of(
-                    new ClasePractica(1, java.time.LocalDate.of(2025,5,22), 60, "Sin observaciones"),
-                    new ClasePractica(2, java.time.LocalDate.of(2025,5,23), 90, "Clase avanzada")
-            );
-
-            List<Alumno> alumnos = List.of(
-
-            );
-
-            new InterfazMostrarClases(clases, alumnos);
+            InterfazMostrarClases();
         });
         btnAnotarProgreso.addActionListener(e -> {
             new InterfazAnotarProgreso();
         });
+        btnImpartirClase.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Ver Alumnos"));
         btnEditarHorario.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Editar Horario"));
         btnModificarPassword.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Modificar Password"));
 
@@ -59,6 +51,7 @@ public class InterfazProfesor extends JFrame {
 
         panel.add(btnVerAgenda);
         panel.add(btnAnotarProgreso);
+        panel.add(btnImpartirClase);
         panel.add(btnEditarHorario);
         panel.add(btnModificarPassword);
         panel.add(btnGestionarClases);

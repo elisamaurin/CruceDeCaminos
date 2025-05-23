@@ -3,6 +3,7 @@ package org.cpifppiramide.interfaz;
 import org.cpifppiramide.clases.Alumno;
 import org.cpifppiramide.clases.Pregunta;
 import org.cpifppiramide.clases.Test;
+import org.cpifppiramide.conexionBD.Consultas;
 import org.cpifppiramide.enums.Opcion;
 
 import javax.swing.*;
@@ -18,43 +19,54 @@ public class InterfazAlumno extends JFrame {
         setTitle("Área del alumno");
         setSize(600, 400);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         JPanel panel = new JPanel(new GridLayout(4, 1, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        final List<String> respuestas = new ArrayList<>();
-        for(int i = 0; i < preguntas.size(); i++) {
-            Pregunta pregunta = preguntas.get(i);
-            JPanel preguntaPanel = new JPanel(new GridLayout(2,1));
-            JLabel preguntaLabel = new JLabel(pregunta.getEnunciado());
-            preguntaPanel.add(preguntaLabel);
+        JButton btnRealizarTest = new JButton("Realizar test");
+        JButton btnVerHistorial = new JButton("Ver resultados");
+        JButton btnReservarClase = new JButton("Reservar clase práctica");
+        JButton btnVerNotificaciones = new JButton("Ver notificaciones");
+        JButton btnModificarPassword = new JButton("Modificar password");
+        JButton btnModificarHorario = new JButton("Editar horario");
+        JButton btnVerClases = new JButton("Ver clases practicas");
+        JButton btnSalir = new JButton("Cerrar sesión");
 
-            JPanel opcionesPanel = new JPanel(new FlowLayout());
-            JButton botonOpcionA = new JButton("A)" + Opcion.A);
-            JButton botonOpcionB = new JButton("B)" + Opcion.B);
-            JButton botonOpcionC = new JButton("C)" + Opcion.C);
+        btnRealizarTest.addActionListener(e -> {
+            List<Test> tests = Consultas.obtenerTestsConPreguntas();
 
-            int finalI = i;
-            botonOpcionA.addActionListener(e -> respuestas.add(finalI, Opcion.A.name()));
-
-
-        }
-
-        JButton btnRealizarTest = new JButton("Realizar Test");
-        JButton btnVerHistorial = new JButton("Ver Historial de Tests");
-        JButton btnReservarClase = new JButton("Reservar Clase Práctica");
-        JButton btnVerNotificaciones = new JButton("Ver Notificaciones");
-
-        // Aquí puedes agregar listeners para que hagan acciones reales
-        btnRealizarTest.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Realizar Test"));
-        btnVerHistorial.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Ver Historial"));
-        btnReservarClase.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Reservar Clase"));
-        btnVerNotificaciones.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Notificaciones"));
+            if (!tests.isEmpty()) {
+                Test test = tests.get(0);
+                new InterfazTest(test);
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay tests disponibles.");
+            }
+        });
+        btnVerHistorial.addActionListener(e ->{
+            new InterfazResultados();
+        });
+        btnReservarClase.addActionListener(e -> {
+            new InterfazReservarClase(alumno);
+        });
+        btnVerNotificaciones.addActionListener(e -> {
+            new InterfazNotificaciones();
+        });
+        btnModificarPassword.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Modificar Password"));
+        btnModificarHorario.addActionListener(e -> JOptionPane.showMessageDialog(this, "Función: Modificar Horario"));
+        btnVerClases.addActionListener(e -> new InterfazClasePractica());
+        btnSalir.addActionListener(e -> {
+            dispose();
+            new VentanaPrincipal();
+        });
 
         panel.add(btnRealizarTest);
         panel.add(btnVerHistorial);
         panel.add(btnReservarClase);
         panel.add(btnVerNotificaciones);
+        panel.add(btnModificarPassword);
+        panel.add(btnModificarHorario);
+        panel.add(btnVerClases);
+        panel.add(btnSalir);
 
         add(panel);
         setVisible(true);

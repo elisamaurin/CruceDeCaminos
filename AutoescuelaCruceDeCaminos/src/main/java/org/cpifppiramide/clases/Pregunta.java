@@ -6,6 +6,7 @@ public class Pregunta {
     private long id;
     private String enunciado;
     private Opcion opcion;
+    private Respuesta respuestaCorrecta;
 
     public Pregunta() {}
 
@@ -37,6 +38,14 @@ public class Pregunta {
 
     public void setOpcion(Opcion opcion) {
         this.opcion = opcion;
+    }
+
+    public Respuesta getRespuestaCorrecta() {
+        return respuestaCorrecta;
+    }
+
+    public void setRespuestaCorrecta(Respuesta respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
     }
 
     public String toString() {

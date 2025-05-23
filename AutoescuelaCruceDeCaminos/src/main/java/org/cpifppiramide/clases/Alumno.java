@@ -16,9 +16,12 @@ public class Alumno extends Usuario {
 
     private LocalDate fechaNacimiento;
     private String direccion;
+    private List<ClasePractica> clasePracticas;
+    private List<Test>tests;
+    private List<Notificacion>notificaciones;
 
-    public Alumno(long id, String nombre, String apellido, String dni, String email, int telefono, String password, LocalDateTime horario, String tipo, LocalDate fechaNacimiento, String direccion) {
-        super(id, nombre, apellido, dni, email, telefono, password, horario, tipo);
+    public Alumno(long id, String nombre, String apellido, String dni, String email, int telefono, String password, String tipo, LocalDate fechaNacimiento, String direccion) {
+        super(id, nombre, apellido, dni, email, telefono, password, tipo);
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
     }
@@ -39,45 +42,27 @@ public class Alumno extends Usuario {
         return direccion;
     }
 
-    public static void realizarTest(Test test) {
-        Connection conn = null;
-        Statement stm = null;
-        ResultSet rs = null;
-        int puntuacion = 0;
-        int totalPreguntas = 0;
-        try {
-           conn = Conexion.connection();
-           stm = conn.createStatement();
-           String queryPreguntas = "SELECT * FROM pregunta WHERE fk_id_test = " + test.getId();
-           rs = stm.executeQuery(queryPreguntas);
-
-           List<Pregunta> preguntas = new ArrayList<>();
-           while (rs.next()) {
-               Pregunta pregunta = new Pregunta();
-               pregunta.setId(rs.getInt("id"));
-               pregunta.setEnunciado(rs.getString("enunciado"));
-               String opcion = rs.getString("opcion");
-               pregunta.setOpcion(Opcion.valueOf(opcion));
-               preguntas.add(pregunta);
-           }
-            Scanner sc = new Scanner(System.in);
-            for (Pregunta pregunta : preguntas) {
-                totalPreguntas++;
-                System.out.println(pregunta.getEnunciado());
-                int respuesta = sc.nextInt();
-                if (respuesta == pregunta.getOpcion().getRespuesta()) {
-                    puntuacion++;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void inscribirClasePractica(ClasePractica clasePractica) {
+        if(!clasePracticas.contains(clasePractica)) {
+            clasePracticas.add(clasePractica);
+            System.out.println("Alumno inscrito en la clase práctica: " + clasePractica.getId());
+        }else{
+            System.out.println("El alumno ya está inscrito en la clase práctica: " + clasePractica.getId());
         }
     }
 
-    public static
-
-    @Override
-    public String toString() {
-       return super.toString() + "\n" + "Fecha de Nacimiento: " + fechaNacimiento + "\n" + "Direccion: " + direccion;
+    public void realizarTest(Test test, List<Opcion> opciones) {
+        if(test.getPreguntas().size() != opciones.size()) {
+            System.out.println("El número de preguntas no coincide con el número de opciones seleccionadas.");
+            return;
+        }
+        int aciertos = 0;
+        for (int i = 0; i < test.getPreguntas().size(); i++) {
+            if(test.getPreguntas().get(i).getRespuestaCorrecta().equals(opciones.get(i))) {
+                aciertos++;
+            }
+        }
     }
+
+
 }
